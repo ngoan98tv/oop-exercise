@@ -5,9 +5,8 @@
  */
 package student_manage;
 
-import java.util.ArrayList;
+import java.io.*;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -23,11 +22,15 @@ public class Student_Manage {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Student_Manage manage = new Student_Manage();
         manage.enterTeacher();
+        manage.enterClass();
+        manage.enterStudent();
         manage.viewTeacher();
-        
+        manage.viewClass();
+        manage.viewStudent();
+        manage.saveToFile();
     }
     
     //enter a teacher from keyboard
@@ -59,7 +62,7 @@ public class Student_Manage {
         String name;
         Date birth_date;
         String major;
-        int course;
+        int course; 
         Student student;
         
         System.out.println("Enter a new student");
@@ -95,29 +98,14 @@ public class Student_Manage {
         subject = sc.nextLine();
         System.out.print("Id: ");
         id = sc.nextLine();
-        System.out.print("Teacher index: ");
-        teacher = this.teacherList.get(Integer.parseInt(sc.nextLine()));
+        System.out.print("Teacher id: ");
+        teacher = this.teacherList.get(sc.nextLine());
         System.out.print("Credits: ");
         credits = sc.nextInt();
         
         cls = new Class(subject, id, teacher, credits);
-        
+        teacher.addClass(cls);
         this.classList.put(id,cls);
-    }
-    
-    //read list of teachers from file
-    public void readTeacher(){
-        
-    }
-    
-    //read list of students from file
-    public void readStudent(){
-        
-    }
-    
-    //read list of classes from file
-    public void readClass(){
-        
     }
     
     //view list of available teachers
@@ -142,6 +130,34 @@ public class Student_Manage {
             System.out.println("_____________________________________________");
             this.classList.get(key).displayInfo();
         });
+    }
+    
+    public void saveToFile() throws FileNotFoundException, IOException{
+        /*
+        FileOutputStream stdOut = new FileOutputStream("student.txt");
+        ObjectOutputStream studentFile = new ObjectOutputStream(stdOut);
+        FileOutputStream tchrOut = new FileOutputStream("teacher.txt");
+        ObjectOutputStream teacherFile = new ObjectOutputStream(tchrOut);
+        FileOutputStream clssOut = new FileOutputStream("class.txt");
+        ObjectOutputStream classFile = new ObjectOutputStream(clssOut);
+        */
+        FileOutputStream file = new FileOutputStream("data.txt");
+        ObjectOutputStream data = new ObjectOutputStream(file);
+        
+        data.writeObject(this.teacherList);
+        data.writeObject(this.classList);
+        data.writeObject(this.studentList);
+        data.flush();
+        
+    }
+    
+    public void readFromFile() throws FileNotFoundException, IOException, ClassNotFoundException{
+        FileInputStream file = new FileInputStream("data.txt");
+        ObjectInputStream data = new ObjectInputStream(file);
+        
+        this.teacherList = (Map<String, Teacher>) data.readObject();
+        this.classList = (Map<String, Class>) data.readObject();
+        this.studentList = (Map<String, Student>) data.readObject();
     }
     
 }
