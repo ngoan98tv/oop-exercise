@@ -76,7 +76,7 @@ public class Student {
     }
 
     public int getNumberOfClass() {
-        return cls.size();
+        return this.cls.size();
     }
 
     public String createStudentEmail() {
@@ -89,7 +89,7 @@ public class Student {
         Class iteration;
         for (int i = 0; i < this.cls.size(); i++) {
             iteration = this.cls.get(i);
-            if (this.grade.get(iteration.getClassID()) == -1) {
+            if (this.grade.get(iteration.getClassID()) == null) {
                 continue;
             }
 
@@ -99,11 +99,13 @@ public class Student {
         return (double) sum / credits;
     }
 
-    public boolean changeStudentID(String student_id) {
-        if (this.isStudentIDValid(student_id)) {
-            this.student_id = student_id;
+    public boolean changeStudentID() {
+	String temp = this.student_id;
+	this.student_id = student_id;
+        if (this.isStudentIDValid()) {
             return true;
         } else {
+	    this.student_id = temp;
             return false;
         }
     }
@@ -134,8 +136,8 @@ public class Student {
         }
     }
 
-    public boolean isStudentIDValid(String student_id) {
-        if (student_id.charAt(0) == 'B' && student_id.length() == 8) {
+    public boolean isStudentIDValid() {
+        if ((this.student_id.charAt(0) == 'B' || this.student_id.charAt(0) == 'b') && student_id.length() == 8) {
             return true;
         } else {
             return false;
@@ -153,8 +155,16 @@ public class Student {
         );
     }
 
-    public void changeClassGrade(Class cls, float grade) {
-        this.grade.put(cls.getClassID(), grade);
+    public boolean changeClassGrade(Class cls, float grade) {
+	if(grade >= 0 && grade <= 10 && 
+	   {
+		   this.grade.put(cls.getClassID(), grade);
+		   return true;
+	   }
+	else
+	   {
+		   return false;
+	   }
     }
 
     public void addClass(Class cls) {
