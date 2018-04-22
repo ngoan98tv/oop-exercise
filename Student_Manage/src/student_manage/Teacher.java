@@ -56,10 +56,7 @@ public class Teacher implements Serializable{
     }
 
     public void displayInfo() {			//hien thong tin giao vien ra man hinh
-        System.out.println("Teacher's code: " + this.code);
-        System.out.println("Teacher's name: " + this.name);
-        System.out.println("Teacher's email: " + this.email);
-        System.out.print("Teacher classes: ");
+        System.out.format("%-8s \t| %-20s \t| \t %30s | ",this.code,this.name,this.email);
         for (int i = 0; i < cls.size(); i++) {		//in tung ID lop ma giao vien do day
             System.out.print(cls.get(i).getClassID() + ", "); 			//(lay ra phan tu thu i).(phuong thuc lay IDclass)
         }

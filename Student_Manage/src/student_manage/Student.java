@@ -22,7 +22,7 @@ public class Student implements Serializable {
     String major;
     String email;
     int course;
-    ArrayList<Class> cls = new ArrayList<>();
+    ArrayList<Class> classList = new ArrayList<>();
     Map<String, Float> grade;
 
     public Student() {
@@ -77,7 +77,7 @@ public class Student implements Serializable {
     }
 
     public int getNumberOfClass() {
-        return cls.size();
+        return classList.size();
     }
 
     public String createStudentEmail() {
@@ -88,8 +88,8 @@ public class Student implements Serializable {
         int sum = 0;
         int credits = 0;
         Class iteration;
-        for (int i = 0; i < this.cls.size(); i++) {
-            iteration = this.cls.get(i);
+        for (int i = 0; i < this.classList.size(); i++) {
+            iteration = this.classList.get(i);
             if (this.grade.get(iteration.getClassID()) == -1) {
                 continue;
             }
@@ -144,14 +144,8 @@ public class Student implements Serializable {
     }
 
     public void displayBasicInfo() {
-        System.out.println(
-                "Student name: " + this.student_name + "\n"
-                + "Student ID: " + this.student_id + "\n"
-                + "Date of Birth: " + this.birth_date.toString() + "\n"
-                + "Major: " + this.major + "\n"
-                + "Course: " + this.course + "\n"
-                + "Email: " + this.email + "\n"
-        );
+        String format = "%-8s \t| %-20s \t| %-6s \t | %-10s \t | \t %30s | %-30s\n";
+        System.out.format(format,this.student_id,this.student_name,this.course,this.birth_date.toString(),this.email,this.major);
     }
 
     public void changeClassGrade(Class cls, float grade) {
@@ -160,13 +154,13 @@ public class Student implements Serializable {
 
     public void addClass(Class cls) {
         cls.addStudent(this);
-        this.cls.add(cls);
+        this.classList.add(cls);
         this.grade.put(cls.getClassID(), null);
     }
 
     public void deleteClass(Class cls) {
         cls.deleteStudent(this);
-        this.cls.remove(cls);
+        this.classList.remove(cls);
         this.grade.remove(cls.getClassID());
     }
     /*

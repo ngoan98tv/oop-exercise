@@ -73,12 +73,7 @@ public class Class implements Serializable {
     }
     
     public void displayInfo(){
-        System.out.println(
-                "Subject: " + this.subject + "\n"
-                + "ID: " + this.class_id + "\n"
-                + "Teacher: " + this.teacher.getName() + "\n"
-                + "Credits: " + this.credits + "\n"
-                + "Number of students: " + this.getNumberOfStudents()
-        );
+        String format = "%-5s \t| %-20s \t| %-20s \t | %-8s \t | %-30s\n";
+        System.out.format(format,this.class_id,this.subject,this.teacher.getName(),this.credits,this.getNumberOfStudents());
     }
 }

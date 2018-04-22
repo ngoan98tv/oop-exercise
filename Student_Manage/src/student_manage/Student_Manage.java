@@ -24,19 +24,76 @@ public class Student_Manage {
      */
     public static void main(String[] args) throws IOException, FileNotFoundException, ClassNotFoundException {
         Student_Manage manage = new Student_Manage();
+        manage.readFromFile();
         
-        manage.enterTeacher();
-        manage.enterClass();
-        manage.enterStudent();
-        
-        
-        //manage.readFromFile();
-        
-        manage.viewTeacher();
-        manage.viewClass();
-        manage.viewStudent();
+        manage.chooseAction();
         
         manage.saveToFile();
+    }
+    
+    //display a menu to take an action
+    public void chooseAction(){
+        int choice = 111;
+        Scanner sc = new Scanner(System.in);
+        while (choice != 0) {
+            System.out.println("_____________Student Management_____________");
+            System.out.println(
+                    "1\tView list of available Students\n"
+                    + "2\tView list of available Teachers\n"
+                    + "3\tView list of available Classes\n"
+                    + "4\tView list of Students in a Class\n"
+                    + "5\tView list of Classes of a Teacher\n"
+                    + "6\tView list of Classes of a Student\n"
+                    + "7\tAdd a new student\n"
+                    + "8\tAdd a new teacher\n"
+                    + "9\tAdd a new class\n"
+                    + "10\tAdd a student to a class\n"
+                    + "11\tDelete a teacher (all classes of the teacher will loose)\n"
+                    + "12\tDelete a student\n"
+                    + "13\tDelete a class\n"
+                    + "0\tExit"
+            );
+
+            System.out.print("Choose an action: ");
+            choice = sc.nextInt();
+
+            switch (choice) {
+                case 0: //Exit
+                    break;
+                case 1: this.viewStudent();
+                    break;
+                case 2: this.viewTeacher();
+                    break;
+                case 3: this.viewClass();
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+                case 6:
+                    break;
+                case 7: this.enterStudent();
+                    break;
+                case 8: this.enterTeacher();
+                    break;
+                case 9: this.enterClass();
+                    break;
+                case 10:
+                    break;
+                case 11:
+                    break;
+                case 12:
+                    break;
+                case 13:
+                    break;
+                default:
+                    System.out.println("Input is invalid, please try again!");
+            }
+            if (choice != 0) {
+                System.out.print("Press 1 to continue or 0 to exit. ");
+                choice = sc.nextInt();
+            }
+        }
     }
     
     //enter a teacher from keyboard
@@ -116,37 +173,44 @@ public class Student_Manage {
     
     //view list of available teachers
     public void viewTeacher(){
+        System.out.println("----------------------------------------------------------------------------------------------");
+        System.out.println("                                           Teachers                                           ");
+        System.out.println("----------------------------------------------------------------------------------------------");
+        System.out.format("%-8s \t| %-20s \t| \t %30s | %-30s\n","ID","Name","Email","Classes");
         this.teacherList.keySet().forEach((key) -> {
-            System.out.println("_____________________________________________");
             this.teacherList.get(key).displayInfo();
         });
+        System.out.println("______________________________________________________________________________________________");
     }
     
     //view list of available students
     public void viewStudent(){
+        String format = "%-8s \t| %-20s \t| %-6s \t | %-10s \t | \t %30s | %-30s\n";
+        System.out.println("---------------------------------------------------------------------------------------------------------------");
+        System.out.println("                                                      Students                                                 ");
+        System.out.println("---------------------------------------------------------------------------------------------------------------");
+        System.out.format(format,"ID","Name","Course","Birthday","Email","Major");
         this.studentList.keySet().forEach((key) -> {
-            System.out.println("_____________________________________________");
             this.studentList.get(key).displayBasicInfo();
         });
+        System.out.println("_______________________________________________________________________________________________________________");
     }
     
     //view list of available classes
     public void viewClass(){
+       String format = "%-5s \t| %-20s \t| %-20s \t | %-8s \t | %-30s\n";
+        System.out.println("-----------------------------------------------------------------------------------------------");
+        System.out.println("                                          Classes                                              ");
+        System.out.println("-----------------------------------------------------------------------------------------------");
+        System.out.format(format,"ID","Subject","Teacher","Credits","Numbers of students");
        this.classList.keySet().forEach((key) -> {
-            System.out.println("_____________________________________________");
             this.classList.get(key).displayInfo();
         });
+       System.out.println("______________________________________________________________________________________________");
     }
     
     public void saveToFile() throws FileNotFoundException, IOException{
-        /*
-        FileOutputStream stdOut = new FileOutputStream("student.txt");
-        ObjectOutputStream studentFile = new ObjectOutputStream(stdOut);
-        FileOutputStream tchrOut = new FileOutputStream("teacher.txt");
-        ObjectOutputStream teacherFile = new ObjectOutputStream(tchrOut);
-        FileOutputStream clssOut = new FileOutputStream("class.txt");
-        ObjectOutputStream classFile = new ObjectOutputStream(clssOut);
-        */
+        
         try {
             FileOutputStream file = new FileOutputStream("data.txt");
             ObjectOutputStream data = new ObjectOutputStream(file);
@@ -171,7 +235,6 @@ public class Student_Manage {
         this.studentList = (Map<String, Student>) data.readObject();
         
         data.close();
-        file.close();
     }
     
 }
