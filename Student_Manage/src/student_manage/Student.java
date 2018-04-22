@@ -156,7 +156,7 @@ public class Student {
     }
 
     public boolean changeClassGrade(Class cls, float grade) {
-	if(grade >= 0 && grade <= 10 && 
+	if(grade >= 0 && grade <= 10 && this.cls.contains(cls))
 	   {
 		   this.grade.put(cls.getClassID(), grade);
 		   return true;
