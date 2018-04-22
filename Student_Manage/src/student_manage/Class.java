@@ -18,14 +18,14 @@ public class Class implements Serializable {
     private String class_id;
     private Teacher  teacher;
     private int credits;
-    private ArrayList<Student> student;
+    public ArrayList<Student> student;
     
     public Class(String subject, String id, Teacher teacher, int credits){
         this.subject = subject;
         this.class_id = id;
         this.teacher = teacher;
         this.credits = credits;
-        this.student = new ArrayList<Student>();
+        this.student = new ArrayList<>();
     }
     
     public Class(Class cls) {
@@ -33,7 +33,7 @@ public class Class implements Serializable {
         this.class_id = cls.class_id;
         this.teacher = cls.teacher;
         this.credits = cls.credits;
-        this.student = new ArrayList<Student>();
+        this.student = new ArrayList<>();
     }
     
     public void updateTeacher(Teacher newTeacher){
@@ -66,10 +66,6 @@ public class Class implements Serializable {
     
     public void deleteStudent(Student std){
         this.student.remove(std);
-    }
-    
-    public void listStudents(){
-        System.out.println(this.student.toString());
     }
     
     public void displayInfo(){

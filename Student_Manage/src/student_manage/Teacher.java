@@ -20,7 +20,7 @@ public class Teacher implements Serializable{
     private String code;
     private String name;
     private String email;
-    private ArrayList<Class> cls;      //ben class Class
+    public ArrayList<Class> cls;      //ben class Class
 
     public Teacher() {
         this.code = new String();

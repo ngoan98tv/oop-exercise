@@ -7,12 +7,12 @@ package student_manage;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  *
  * @author Nguyen_Nhat_Quang
+ * 
+ * @reviser Ngoan_Tran
  */
 public class Student implements Serializable {
 
@@ -23,10 +23,8 @@ public class Student implements Serializable {
     String email;
     int course;
     ArrayList<Class> classList = new ArrayList<>();
-    Map<String, Float> grade;
 
     public Student() {
-        this.grade = new HashMap<>();
         this.student_id = null;
         this.student_name = null;
         this.birth_date = null;
@@ -35,7 +33,6 @@ public class Student implements Serializable {
     }
 
     public Student(String student_id, String student_name, Date birth_date, String major, int course) {
-        this.grade = new HashMap<>();
         this.student_id = student_id;
         this.student_name = student_name;
         this.birth_date = birth_date;
@@ -44,10 +41,6 @@ public class Student implements Serializable {
         this.email = this.createStudentEmail();
     }
 
-    /*public Student(Student S)
-	{
-
-	}*/
     public String getStudentID() {
         return this.student_id;
     }
@@ -77,27 +70,11 @@ public class Student implements Serializable {
     }
 
     public int getNumberOfClass() {
-        return classList.size();
+        return this.classList.size();
     }
 
     public String createStudentEmail() {
         return this.getFirstName().toLowerCase() + this.student_id.toLowerCase() + "@student.ctu.edu.vn";
-    }
-
-    public double getGPA() {
-        int sum = 0;
-        int credits = 0;
-        Class iteration;
-        for (int i = 0; i < this.classList.size(); i++) {
-            iteration = this.classList.get(i);
-            if (this.grade.get(iteration.getClassID()) == -1) {
-                continue;
-            }
-
-            sum += this.grade.get(iteration.getClassID()) * iteration.getCredits();
-            credits += iteration.getCredits();
-        }
-        return (double) sum / credits;
     }
 
     public boolean changeStudentID(String student_id) {
@@ -148,131 +125,14 @@ public class Student implements Serializable {
         System.out.format(format,this.student_id,this.student_name,this.course,this.birth_date.toString(),this.email,this.major);
     }
 
-    public void changeClassGrade(Class cls, float grade) {
-        this.grade.put(cls.getClassID(), grade);
-    }
 
     public void addClass(Class cls) {
         cls.addStudent(this);
         this.classList.add(cls);
-        this.grade.put(cls.getClassID(), null);
     }
 
     public void deleteClass(Class cls) {
         cls.deleteStudent(this);
         this.classList.remove(cls);
-        this.grade.remove(cls.getClassID());
     }
-    /*
-	public void listAttendedClass()
-	{
-		Class iteration;		
-		System.out.println("########Classes########");
-		for(int i = 0; i < this.cls.size(); i++)
-		{
-			iteration = this.cls.get(i);
-			System.out.println("Class ID: " + iteration.getClassID());
-			System.out.println("Subject: " + iteration.getSubject());
-			System.out.println("Instructor: " + iteration.getTeacher().getName());
-			System.out.println("Credits: " + iteration.getCredits());
-			System.out.println("Grade: " + grade.get(iteration.getClassID()));
-			System.out.println("---------------------------");
-		}
-		System.out.println("#######################");
-	}
-	public void inputBasicInfo()
-	{
-		Scanner sc = new Scanner(System.in);
-		Date birth_date = new Date();
-
-		while(true)
-		{
-			try{
-				System.out.print("Student ID: ");
-				this.student_id = sc.nextLine().trim();
-				
-				if(this.isStudentIDValid(this.student_id))
-				{
-					break;
-				}
-				
-				System.out.println("Invalid student ID!");
-				sc.next();
-				continue;
-
-			}catch(NoSuchElementException e)
-			{
-				System.out.println("Invalid input!");
-				sc.next();
-				continue;
-			}
-		}
-		while(true)
-		{
-			try{
-				System.out.print("Student name: ");
-				this.student_name = sc.nextLine().trim();
-				break;
-
-			}catch(NoSuchElementException e){
-				System.out.println("Invalid input!");
-				sc.next();
-				continue;
-			}
-		}
-		
-		System.out.println("Date of Birth: ");
-		this.birth_date.keyboardInput();
-		
-		while(true)
-		{
-			try{
-				System.out.print("Major: ");
-				this.major = sc.nextLine().trim();
-				break;
-
-			}catch(NoSuchElementException e){
-				System.out.println("Invalid input!");
-				sc.next();
-				continue;
-			}
-		}
-		while(true)
-		{
-			try{
-				System.out.print("Course: ");
-				this.course = sc.nextInt();
-				break;
-
-			}catch(InputMismatchException e){
-				System.out.println("Invalid input!");
-				sc.next();
-				continue;
-			}
-		}
-	}
-/*
-	public void inputAllGrade()
-	{
-		Class iteration;
-		Scanner sc = new Scanner(System.in);
-		for(int i = 0; i < this.cls.size(); i++)
-		{
-			iteration = this.cls.get(i);
-			System.out.println("[" + iteration.getClassID() + "] " + iteration.subject + ": ");
-			while(true)
-			{
-				try{
-					this.grade.put(iteration.getClassID(), sc.nextInt());
-					break;
-				}catch(InputMismatchException e)
-				{
-					System.out.println("Invalid grade!");
-					sc.next();
-					continue;
-				}
-			}
-		}
-	}
-     */
 }
