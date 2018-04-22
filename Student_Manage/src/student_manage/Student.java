@@ -5,6 +5,7 @@
  */
 package student_manage;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +14,7 @@ import java.util.Map;
  *
  * @author Nguyen_Nhat_Quang
  */
-public class Student {
+public class Student implements Serializable {
 
     String student_id;
     String student_name;

@@ -5,6 +5,7 @@
  */
 package student_manage;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -14,7 +15,7 @@ import java.util.ArrayList;
  * @reviser Ngoan_Tran
  * 
  */
-public class Teacher {
+public class Teacher implements Serializable{
 
     private String code;
     private String name;

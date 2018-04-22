@@ -5,13 +5,14 @@
  */
 package student_manage;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Ngoan_Tran
  */
-public class Class {
+public class Class implements Serializable {
     
     private String subject;
     private String class_id;

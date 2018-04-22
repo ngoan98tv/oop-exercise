@@ -5,11 +5,13 @@
  */
 package student_manage;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Quoc_Bao
  */
-class Date {
+class Date implements Serializable {
 
     private int day;
     private int month;

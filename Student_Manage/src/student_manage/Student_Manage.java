@@ -22,14 +22,20 @@ public class Student_Manage {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, FileNotFoundException, ClassNotFoundException {
         Student_Manage manage = new Student_Manage();
+        
         manage.enterTeacher();
         manage.enterClass();
         manage.enterStudent();
+        
+        
+        //manage.readFromFile();
+        
         manage.viewTeacher();
         manage.viewClass();
         manage.viewStudent();
+        
         manage.saveToFile();
     }
     
@@ -141,14 +147,19 @@ public class Student_Manage {
         FileOutputStream clssOut = new FileOutputStream("class.txt");
         ObjectOutputStream classFile = new ObjectOutputStream(clssOut);
         */
-        FileOutputStream file = new FileOutputStream("data.txt");
-        ObjectOutputStream data = new ObjectOutputStream(file);
-        
-        data.writeObject(this.teacherList);
-        data.writeObject(this.classList);
-        data.writeObject(this.studentList);
-        data.flush();
-        
+        try {
+            FileOutputStream file = new FileOutputStream("data.txt");
+            ObjectOutputStream data = new ObjectOutputStream(file);
+
+            data.writeObject(this.teacherList);
+            data.writeObject(this.classList);
+            data.writeObject(this.studentList);
+            data.flush();
+
+            data.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
     public void readFromFile() throws FileNotFoundException, IOException, ClassNotFoundException{
@@ -158,6 +169,9 @@ public class Student_Manage {
         this.teacherList = (Map<String, Teacher>) data.readObject();
         this.classList = (Map<String, Class>) data.readObject();
         this.studentList = (Map<String, Student>) data.readObject();
+        
+        data.close();
+        file.close();
     }
     
 }
