@@ -99,7 +99,7 @@ public class Student {
         return (double) sum / credits;
     }
 
-    public boolean changeStudentID() {
+    public boolean changeStudentID(String student_id) {
 	String temp = this.student_id;
 	this.student_id = student_id;
         if (this.isStudentIDValid()) {
@@ -178,116 +178,4 @@ public class Student {
         this.cls.remove(cls);
         this.grade.remove(cls.getClassID());
     }
-    /*
-	public void listAttendedClass()
-	{
-		Class iteration;		
-		System.out.println("########Classes########");
-		for(int i = 0; i < this.cls.size(); i++)
-		{
-			iteration = this.cls.get(i);
-			System.out.println("Class ID: " + iteration.getClassID());
-			System.out.println("Subject: " + iteration.getSubject());
-			System.out.println("Instructor: " + iteration.getTeacher().getName());
-			System.out.println("Credits: " + iteration.getCredits());
-			System.out.println("Grade: " + grade.get(iteration.getClassID()));
-			System.out.println("---------------------------");
-		}
-		System.out.println("#######################");
-	}
-	public void inputBasicInfo()
-	{
-		Scanner sc = new Scanner(System.in);
-		Date birth_date = new Date();
-
-		while(true)
-		{
-			try{
-				System.out.print("Student ID: ");
-				this.student_id = sc.nextLine().trim();
-				
-				if(this.isStudentIDValid(this.student_id))
-				{
-					break;
-				}
-				
-				System.out.println("Invalid student ID!");
-				sc.next();
-				continue;
-
-			}catch(NoSuchElementException e)
-			{
-				System.out.println("Invalid input!");
-				sc.next();
-				continue;
-			}
-		}
-		while(true)
-		{
-			try{
-				System.out.print("Student name: ");
-				this.student_name = sc.nextLine().trim();
-				break;
-
-			}catch(NoSuchElementException e){
-				System.out.println("Invalid input!");
-				sc.next();
-				continue;
-			}
-		}
-		
-		System.out.println("Date of Birth: ");
-		this.birth_date.keyboardInput();
-		
-		while(true)
-		{
-			try{
-				System.out.print("Major: ");
-				this.major = sc.nextLine().trim();
-				break;
-
-			}catch(NoSuchElementException e){
-				System.out.println("Invalid input!");
-				sc.next();
-				continue;
-			}
-		}
-		while(true)
-		{
-			try{
-				System.out.print("Course: ");
-				this.course = sc.nextInt();
-				break;
-
-			}catch(InputMismatchException e){
-				System.out.println("Invalid input!");
-				sc.next();
-				continue;
-			}
-		}
-	}
-/*
-	public void inputAllGrade()
-	{
-		Class iteration;
-		Scanner sc = new Scanner(System.in);
-		for(int i = 0; i < this.cls.size(); i++)
-		{
-			iteration = this.cls.get(i);
-			System.out.println("[" + iteration.getClassID() + "] " + iteration.subject + ": ");
-			while(true)
-			{
-				try{
-					this.grade.put(iteration.getClassID(), sc.nextInt());
-					break;
-				}catch(InputMismatchException e)
-				{
-					System.out.println("Invalid grade!");
-					sc.next();
-					continue;
-				}
-			}
-		}
-	}
-     */
 }
